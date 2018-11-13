@@ -1,0 +1,5 @@
+mutation logoutKey($_authKey: String!){
+  logoutKey(_authKey: $_authKey){
+    msg
+  }
+}

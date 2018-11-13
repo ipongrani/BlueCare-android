@@ -1,0 +1,13 @@
+  query getPatients ($_authKey: String!){
+      getPatients (_authKey: $_authKey){
+        msg
+      	patientRecords {
+          name
+          age
+          conditions {
+            name
+            status
+          }
+        }
+      }
+    }

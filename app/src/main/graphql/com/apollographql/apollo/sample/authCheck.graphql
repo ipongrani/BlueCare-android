@@ -1,0 +1,8 @@
+mutation auth($_authKey: String!){
+  authUser(_authKey: $_authKey){
+    msg
+    token
+    membership
+    patientAccess
+  }
+}

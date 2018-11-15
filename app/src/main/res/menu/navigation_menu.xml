@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/nav_home"
+        android:title="Patient Records"/>
+
+    <item android:id="@+id/profile"
+        android:title="My Profile"/>
+
+    <item android:id="@+id/facility"
+        android:title="Care Faility"/>
+
+    <item android:id="@+id/contactUs"
+        android:title="Contact Us"/>
+
+    <item android:id="@+id/aboutUs"
+    android:title="About Us"/>
+
+    <item android:id="@+id/logOut"
+    android:title="Log Out"/>
+
+</menu>

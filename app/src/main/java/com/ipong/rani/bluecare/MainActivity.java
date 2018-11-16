@@ -6,9 +6,17 @@ package com.ipong.rani.bluecare;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -49,6 +57,14 @@ public class MainActivity extends AppCompatActivity {
     PatientAdapter thisAdapter;
     final ArrayList<Patient> patientList = new ArrayList<>();
 
+    //Widget
+    private NavigationView navigationView;
+//    private CoordinatorLayout coordinatorLayout;
+//    private RecyclerView postList;
+    private DrawerLayout drawerLayout;
+    private Toolbar mToolbar;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+
 
 
     @Override
@@ -63,11 +79,41 @@ public class MainActivity extends AppCompatActivity {
         Button logout = (Button) findViewById(R.id.btnLogout);
         thisListView = (ListView) findViewById(R.id.patient_list);
 
+        navigationView = (NavigationView) findViewById( R.id.navigationMenu );
+        drawerLayout = (DrawerLayout) findViewById( R.id.drawable_layout );
+
+
+        thisListView = (ListView) findViewById(R.id.patient_list);
 
         getPatients(aK);
-
-
         thisAdapter = new PatientAdapter(this,patientList);
+
+        /* Action bar*/
+        mToolbar = (Toolbar) findViewById( R.id.main_page_toolbar );
+        setSupportActionBar(mToolbar);
+
+        getSupportActionBar().setTitle( "Home" );
+        /* END */
+
+        actionBarDrawerToggle = new ActionBarDrawerToggle( MainActivity.this, drawerLayout, R.string
+                .drawer_open, R.string.drawer_close );
+
+        drawerLayout.addDrawerListener( actionBarDrawerToggle );
+        actionBarDrawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled( true );
+
+        View navView = navigationView.inflateHeaderView( R.layout.navigation_header );
+
+        navigationView.setNavigationItemSelectedListener( new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                UserMenuSelector( item );
+
+                return false;
+            }
+        } );
+
+
 
 
 
@@ -89,6 +135,47 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(actionBarDrawerToggle.onOptionsItemSelected( item )){
+            return true;
+        }
+        return super.onOptionsItemSelected( item );
+    }
+
+    private void UserMenuSelector(MenuItem item) {
+        switch (item.getItemId()){
+
+            case R.id.nav_home:
+                Toast.makeText( this, "Patient Records", Toast.LENGTH_SHORT ).show();
+                break;
+
+            case R.id.profile:
+                Toast.makeText( this, "Profile Activity", Toast.LENGTH_SHORT ).show();
+                break;
+
+            case R.id.facility:
+                Toast.makeText( this, "Facility Activity", Toast.LENGTH_SHORT ).show();
+                break;
+
+            case R.id.contactUs:
+                Toast.makeText( this, "Contact Us Activity", Toast.LENGTH_SHORT ).show();
+                break;
+
+            case R.id.aboutUs:
+                Toast.makeText( this, "About Us Activity", Toast.LENGTH_SHORT ).show();
+                break;
+
+            case R.id.btnLogout:
+//                logoutKey(aK);
+                Toast.makeText( this, "Log out", Toast.LENGTH_SHORT ).show();
+
+                break;
+
+        }
     }
 
 

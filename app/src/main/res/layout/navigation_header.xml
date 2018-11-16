@@ -3,9 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="170dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/Black">
+    android:background="@color/blue2">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/nav_profile_image"
         android:layout_width="120dp"
         android:layout_height="120dp"

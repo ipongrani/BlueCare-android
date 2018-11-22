@@ -1,0 +1,13 @@
+package com.ipong.rani.bluecare;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+public class PatientRecord extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.activity_patient_record );
+    }
+}

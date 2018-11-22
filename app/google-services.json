@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "942763404293",
+    "firebase_url": "https://carefacilitynotification.firebaseio.com",
+    "project_id": "carefacilitynotification",
+    "storage_bucket": "carefacilitynotification.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:942763404293:android:6a293dd4195a4c38",
+        "android_client_info": {
+          "package_name": "com.ipong.rani.bluecare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "942763404293-6q9ci0f32j8sontcfko7p265cov13m88.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ipong.rani.bluecare",
+            "certificate_hash": "f1b488137325b34d7c1968e8110f84a87da4f258"
+          }
+        },
+        {
+          "client_id": "942763404293-n60hlgg65u8erjnv76arficalndq49i4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDUAn9JXbhVUDqOrl2ttejBDjNz0e0icA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "942763404293-n60hlgg65u8erjnv76arficalndq49i4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

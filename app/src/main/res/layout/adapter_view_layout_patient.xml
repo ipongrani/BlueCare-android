@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="100"
+    >
+
+    <LinearLayout android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="50">
+        <TextView
+            android:id="@+id/patienName"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Patient Name"
+            android:gravity="center"
+            android:layout_weight="33"
+            android:padding="6dp"
+            android:textColor="@color/blueRose"
+            android:background="@drawable/border_menu_h"
+            android:fontFamily="@font/opensans_semibold"
+            />
+        <TextView
+            android:id="@+id/medicalID"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Mediacal ID"
+            android:gravity="center"
+            android:layout_weight="33"
+            android:padding="6dp"
+            android:textColor="@color/blueRose"
+            android:background="@drawable/border_menu_h"
+            android:fontFamily="@font/opensans_semibold"
+            />
+        <TextView
+            android:id="@+id/bloodType"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Blood Type"
+            android:gravity="center"
+            android:layout_weight="33"
+            android:padding="6dp"
+            android:textColor="@color/blueRose"
+            android:background="@drawable/border_menu_h"
+            android:fontFamily="@font/opensans_semibold"/>
+        <TextView
+            android:id="@+id/bloodPressure"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Blood Pressure"
+            android:gravity="center"
+            android:layout_weight="33"
+            android:padding="6dp"
+            android:textColor="@color/blueRose"
+            android:background="@drawable/border_menu_h"
+            android:fontFamily="@font/opensans_semibold"
+            />
+        <TextView
+            android:id="@+id/allergies"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Allergies"
+            android:gravity="center"
+            android:layout_weight="33"
+            android:padding="6dp"
+            android:textColor="@color/blueRose"
+            android:background="@drawable/border_menu_h"
+            android:fontFamily="@font/opensans_semibold"
+            />
+        <TextView
+            android:id="@+id/diet"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Diet"
+            android:gravity="center"
+            android:layout_weight="33"
+            android:padding="6dp"
+            android:textColor="@color/blueRose"
+            android:background="@drawable/border_menu_h"
+            android:fontFamily="@font/opensans_semibold"
+            />
+        <TextView
+            android:id="@+id/pill"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:layout_weight="33"
+            android:background="@drawable/border_menu_h"
+            android:fontFamily="@font/opensans_regular"
+            android:padding="6dp"
+            android:text="Pill"
+            android:textColor="@color/Black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/timePill"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:layout_weight="33"
+            android:background="@drawable/border_menu_h"
+            android:fontFamily="@font/opensans_regular"
+            android:padding="6dp"
+            android:text="Time Pill / day"
+            android:textColor="@color/Black"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/medicalIssue"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:layout_weight="33"
+            android:background="@drawable/border_menu_h"
+            android:fontFamily="@font/opensans_regular"
+            android:padding="6dp"
+            android:text="Medical Issue"
+            android:textColor="@color/Black"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="50">
+        <TextView
+            android:id="@+id/dataPatientName"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:layout_weight="33"
+            android:background="@drawable/border_menu_h"
+            android:fontFamily="@font/opensans_regular"
+            android:padding="6dp"
+            android:text="Something"
+            android:textColor="@color/Black"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/dataMedID"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:layout_weight="33"
+            android:background="@drawable/border_menu_h"
+            android:fontFamily="@font/opensans_regular"
+            android:padding="6dp"
+            android:text="Something"
+            android:textColor="@color/Black"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/dataBloodType"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:layout_weight="33"
+            android:background="@drawable/border_menu_h"
+            android:fontFamily="@font/opensans_regular"
+            android:padding="6dp"
+            android:text="Something"
+            android:textColor="@color/Black"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/dataBloodPressure"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:layout_weight="33"
+            android:background="@drawable/border_menu_h"
+            android:fontFamily="@font/opensans_regular"
+            android:padding="6dp"
+            android:text="Something"
+            android:textColor="@color/Black"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/dataAllergies"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:layout_weight="33"
+            android:background="@drawable/border_menu_h"
+            android:fontFamily="@font/opensans_regular"
+            android:padding="6dp"
+            android:text="Something"
+            android:textColor="@color/Black"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/dataDiet"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:layout_weight="33"
+            android:background="@drawable/border_menu_h"
+            android:fontFamily="@font/opensans_regular"
+            android:padding="6dp"
+            android:text="Something"
+            android:textColor="@color/Black"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/dataPill"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:layout_weight="33"
+            android:background="@drawable/border_menu_h"
+            android:fontFamily="@font/opensans_regular"
+            android:padding="6dp"
+            android:text="Something"
+            android:textColor="@color/Black"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/dataTimePill"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:layout_weight="33"
+            android:background="@drawable/border_menu_h"
+            android:fontFamily="@font/opensans_regular"
+            android:padding="6dp"
+            android:text="Something"
+            android:textColor="@color/Black"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/dataMedTime"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:layout_weight="33"
+            android:background="@drawable/border_menu_h"
+            android:fontFamily="@font/opensans_regular"
+            android:padding="6dp"
+            android:text="Something"
+            android:textColor="@color/Black"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -2,4 +2,65 @@
     <string name="app_name">BlueCare</string>
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Close</string>
+    <string name="splashTile">Blue Rose Care</string>
+
+    <!--about us page-->
+    <string name="about_us">What is Blue Care Services ?</string>
+
+    <string name="definition">The rapid increase in the aging population as a result of better
+        healthcare and enhancements in medical treatments has resulted in a great need for care
+        facilities for the elderly. By 2013 there will be 4.8 the number of seniors aged 65 and
+        above in Vancouver.
+    </string>
+    <string name="definition2">In today’s fast-paced, busy life, there might be some situations in which one needs to find a home care facility for their loved ones and have a piece of mind which is a major benefit in these situations. We know the pain, sometimes it is difficult to find a care facility for the loved ones and know exactly what levels of care they provide. Even after, knowing whether the parents are doing well and has taken all the medication they need would be a concern.</string>
+
+    <string name="definition3">The goal is to create a platform for facility owners to network with potential clients and search for an appropriate service at a marketable and competitive price. The information will be presented visually, allowing users to compare different factors that will help in their decision process to select their ideal home care.</string>
+
+    <string name="definition4">However, it proves to be a challenge matching a patient to the
+        right care facility that provides the exact service they need. And this is where our platform aims to bridge these problems and solutions to better serve both sides of the aging population.
+Having access to the trackable data of the elderlies day to day tasks via a mobile phone can assure the families that their beloved is in good hands.</string>
+
+    <string name="services">Services</string>
+    <string name="services1">Matching Criteria: based on the information from customers and health care services; the app will find which services is the best one for customers.</string>
+    <string name="services2">Tracking notifications( Extra features): tracking is feature that help the families have opportunity to follow up with their dependants’ living conditions.</string>
+
+    <string name="future">Future Plans</string>
+    <string name="services3">Market and connect various facilities from different location to
+        give the accurate information by visualizing the data and the facilities in 360 degree
+        picture.\n\nSmart watch/Bracelet  health integration: This life-saving function can track
+        sudden
+        changes in heart rates, blood pressure, glucose level or even the movements that track
+        the possible falls of the Bluetooth Tracking: To receive alarms in case a patient leaves
+        the room.\n\n
+        Having a dedicated hardware for tracking patient’s condition in sanitary areas</string>
+
+
+    <string name="team">About the Team</string>
+    <string name="manager">Project Manager</string>
+    <string name="managerName">Samanneh</string>
+    <string name="contentSam">Something about Samanneh</string>
+
+    <string name="designer">Designers</string>
+    <string name="designerName1">Harry</string>
+    <string name="contentHarry">Something about Harry</string>
+
+    <string name="designerName2">Avi Samra</string>
+    <string name="contentAvi">Something about Avi</string>
+
+    <string name="developer">Developers</string>
+    <string name="developerName1">Rani Ipong</string>
+    <string name="contentRani">Something about Rani</string>
+
+    <string name="developerName2">Nicky Le</string>
+    <string name="contentNicky">Something about Nicky</string>
+    <!--END-->
+
+    <!--Contact Us Page-->
+    <string name="contact_us">Get in Touch</string>
+
+    <string name="firstName">First Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="phoneNumber">Phone number</string>
+
+
 </resources>

@@ -48,6 +48,32 @@
             android:layout_marginBottom="8dp"
             android:text="Logout" />
 
+        <Button
+            android:id="@+id/showNotifi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnLogout"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="Show Notification"
+            android:textAllCaps="false" />
+        <TextView
+            android:id="@+id/textViewToken"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/showNotifi"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="8dp"
+            android:textAllCaps="false" />
+
 
         <ListView
             android:id="@+id/patient_list"
@@ -56,7 +82,7 @@
             android:layout_below="@+id/txtDisplay"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="36dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:padding="4dp"

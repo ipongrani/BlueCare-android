@@ -19,8 +19,6 @@ public class Splash extends AppCompatActivity {
 
         SharedPreferences sharedpreferences = getSharedPreferences("ACTIVE_USER", Context.MODE_PRIVATE);
 
-
-
         //File f = new File("/data/data/BlueCare/shared_prefs/Name_of_your_preference.xml");
 
         if (sharedpreferences.contains("authToken")) {

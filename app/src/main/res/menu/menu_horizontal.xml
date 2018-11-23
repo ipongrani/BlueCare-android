@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="Patient"
+    <item android:title="Patient Info"
           android:icon="@drawable/patientrecord"
           android:background="@drawable/border_menu_h"/>
 

@@ -82,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
+
+    // ** Notification **//
     //1. Notification Channel
     //2. Notification Builder
     //3. Notification Manager
@@ -237,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.nav_home:
                 Toast.makeText( this, "Patient Records", Toast.LENGTH_SHORT ).show();
-                mainLayout.setBackgroundColor(Color.rgb( 111, 255, 33 ) );
+
                 startActivity(new Intent(MainActivity.this, PatientRecord.class));
 
                 break;
@@ -245,14 +247,14 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.contactUs:
                 Toast.makeText( this, "Contact Us Activity", Toast.LENGTH_SHORT ).show();
-                mainLayout.setBackgroundColor(Color.rgb( 66, 22, 22 ) );
+
                 startActivity(new Intent(MainActivity.this, ContactUs.class));
 
                 break;
 
             case R.id.aboutUs:
                 Toast.makeText( this, "About Us Activity", Toast.LENGTH_SHORT ).show();
-                mainLayout.setBackgroundColor(Color.rgb( 255, 11, 44 ) );
+//                mainLayout.setBackgroundColor(Color.rgb( 255, 11, 44 ) );
                 startActivity(new Intent(MainActivity.this, AboutUs.class));
 
 
@@ -284,9 +286,9 @@ public class MainActivity extends AppCompatActivity {
 
                       res1 = response.data().getPatients().msg().toString();
                       List res = response.data().getPatients().patientRecords();
-                      String name;
-                      String age;
-
+                      String pName;
+                      String pAge;
+                      String condition;
 
                       for(int i = 0; i != res.size(); i++) {
                           Object obj = (Object) res.get(i);
@@ -295,13 +297,16 @@ public class MainActivity extends AppCompatActivity {
 
                           try {
                               JSONObject patientRecords = new JSONObject(jsonString);
-                               name = patientRecords.getString("name");
-                               age = patientRecords.getString("age");
+                               pName = patientRecords.getString("name");
+                               pAge = patientRecords.getString("age");
 
-                              JSONArray cond = patientRecords.getJSONArray("conditions");
-                              Patient x = new Patient(name, age);
+                               condition = patientRecords.getString("condition");
 
-                              x.setCondition(cond);
+
+//                              JSONArray condition = patientRecords.getJSONArray("conditions");
+                              Patient x = new Patient(pName, pAge, condition);
+
+                              x.setCondition(condition);
                               patientList.add(x);
 
 

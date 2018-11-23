@@ -86,20 +86,19 @@ public class AboutUs extends AppCompatActivity {
 
             case R.id.nav_home:
                 Toast.makeText( this, "Patient Records", Toast.LENGTH_SHORT ).show();
-                mainLayout.setBackgroundColor(Color.rgb( 111, 255, 33 ) );
+                startActivity(new Intent(AboutUs.this, PatientRecord.class));
                 break;
 
 
             case R.id.contactUs:
                 Toast.makeText( AboutUs.this, "Contact Us Activity", Toast.LENGTH_SHORT ).show();
-                mainLayout.setBackgroundColor(Color.rgb( 66, 22, 22 ) );
                 startActivity(new Intent(AboutUs.this, ContactUs.class));
 
                 break;
 
             case R.id.aboutUs:
                 Toast.makeText( AboutUs.this, "About Us Activity", Toast.LENGTH_SHORT ).show();
-                mainLayout.setBackgroundColor(Color.rgb( 255, 11, 44 ) );
+//                mainLayout.setBackgroundColor(Color.rgb( 255, 11, 44 ) );
                 startActivity(new Intent(AboutUs.this, AboutUs.class));
 
 

@@ -111,8 +111,14 @@ public class StaffActivity extends AppCompatActivity {
 
                         res1 = response.data().getPatients().toString();
                         List res = response.data().getPatients().patientRecords();
-                        String name;
-                        String age;
+                        String pName;
+                        String pAge;
+//                        JSONArray condition;
+                        String condition;
+
+
+
+
 
                         Log.d("staff res: ", res1);
 
@@ -125,11 +131,12 @@ public class StaffActivity extends AppCompatActivity {
 
                             try {
                                 JSONObject patientRecords = new JSONObject(jsonString);
-                                name = patientRecords.getString("name");
-                                age = patientRecords.getString("age");
+                                pName = patientRecords.getString("name");
+                                pAge = patientRecords.getString("age");
+                                condition = patientRecords.getString("condition");
 
-                                //JSONArray cond = patientRecords.getJSONArray("conditions");
-                                Patient x = new Patient(name, age);
+//                                JSONArray cond = patientRecords.getJSONArray("conditions");
+                                Patient x = new Patient(pName, pAge, condition);
 
                                 //x.setCondition(cond);
                                 patientList.add(x);

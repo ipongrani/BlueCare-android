@@ -1,21 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/border_menu_h"
-    tools:context=".PatientRecord">
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/NavTop"
+    tools:context=".PatientRecord"
+    android:id="@+id/drawable_layout3">
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/menuRight"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:foregroundGravity="top"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        app:menu="@menu/menu_horizontal" />
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/border_menu_h"
+            tools:context=".PatientRecord"
+            android:id="@+id/patient_list_show">
 
 
 
+            <FrameLayout
+                android:id="@+id/FrameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btnLogout"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="-8dp">
 
-</android.support.constraint.ConstraintLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="60dp" />
+
+            </FrameLayout>
+
+            <android.support.design.widget.BottomNavigationView
+                android:id="@+id/NavTop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foregroundGravity="top"
+
+                app:menu="@menu/menu_horizontal" />
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="57dp"
+                android:id="@+id/patient_list"/>
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navigationMenu3"
+        android:layout_width="245dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:layout_marginTop="57dp"
+        android:layout_marginBottom="4dp"
+        app:menu="@menu/navigation_menu">
+    </android.support.design.widget.NavigationView>
+</android.support.v4.widget.DrawerLayout>

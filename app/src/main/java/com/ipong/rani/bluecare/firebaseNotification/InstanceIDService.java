@@ -1,4 +1,4 @@
-package com.ipong.rani.bluecare;
+package com.ipong.rani.bluecare.firebaseNotification;
 import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;

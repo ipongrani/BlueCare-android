@@ -1,13 +1,16 @@
-package com.ipong.rani.bluecare;
+package com.ipong.rani.bluecare.components.objects;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class Patient {
 
 
     private String pName;
-
     private String pAge;
+    private String pStatus;
+
+    private JSONObject patientRecord;
 
 //    private JSONArray condition;
     private String condition;
@@ -22,7 +25,7 @@ public class Patient {
     private String pTimePill;
     private String pMedTime;
 
-
+/*
     public Patient(String pName, String pAge, JSONArray condition, String pMedicalId, String
             pBloodType, String pBloodPressure, String pAlergies, String pDiet, String pPill, String pTimePill, String pMedTime) {
         this.pName = pName;
@@ -38,10 +41,13 @@ public class Patient {
         this.pMedTime = pMedTime;
     }
 
-    public Patient(String pName, String pAge, String condition) {
+    */
+
+    public Patient(String pName, String pStatus, String condition, JSONObject patientRecord) {
         this.pName = pName;
-        this.pAge = pAge;
+        this.pStatus = pStatus;
         this.condition = condition;
+        this.patientRecord = patientRecord;
 
     }
 
@@ -51,18 +57,22 @@ public class Patient {
     public String getpName() {
     return pName;
 }
-
     public String getpAge() {
         return pAge;
     }
+    public String getpStatus() { return pStatus; }
+    public String getCondition() {
+        return condition;
+    }
+    public JSONObject getPatientRecord() { return patientRecord; }
+
+
 
 //    public JSONArray getCondition() {
 //        return condition;
 //    }
 
-    public String getCondition() {
-        return condition;
-    }
+
 
 //    public String getpMedicalId() {
 //        return pMedicalId;
@@ -104,10 +114,15 @@ public class Patient {
     public void setpName(String pName) {
         this.pName = pName;
     }
-
     public void setpAge(String pAge) {
         this.pAge = pAge;
     }
+    public void setCondition(String condition){
+        this.condition = condition;
+    }
+    public void setPatientRecord() {  this.patientRecord = patientRecord; }
+
+
 
 //    public void setpMedicalId(String pMedicalId) {
 //        this.pMedicalId = pMedicalId;
@@ -141,9 +156,7 @@ public class Patient {
 //        this.pMedTime = pMedTime;
 //    }
 
-    public void setCondition(String condition){
-        this.condition = condition;
-    }
+
 
 
     // END

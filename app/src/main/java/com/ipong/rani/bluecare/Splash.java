@@ -8,7 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import java.io.File;
+import com.ipong.rani.bluecare.member.MemberActivity;
+import com.ipong.rani.bluecare.staff.StaffActivity;
 
 public class Splash extends AppCompatActivity {
 
@@ -31,7 +32,7 @@ public class Splash extends AppCompatActivity {
                 public void run() {
                      //This method will be executed once the timer is over
                     if(membership.equals("Member")){
-                        Intent i = new Intent(Splash.this, MainActivity.class);
+                        Intent i = new Intent(Splash.this, MemberActivity.class);
                         startActivity(i);
                         finish();
                     } else if (membership.equals("Staff")){
@@ -80,7 +81,7 @@ public class Splash extends AppCompatActivity {
             @Override
             public void run() {
                 // This method will be executed once the timer is over
-                Intent i = new Intent(Splash.this, MainActivity.class);
+                Intent i = new Intent(Splash.this, MemberActivity.class);
                 startActivity(i);
                 finish();
             }

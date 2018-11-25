@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/nav_home"
-        android:title="Patient Records"
-        android:icon="@drawable/patientrecord"/>
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/patientrecord"
+        android:title="Patient Records" />
 
     <item android:id="@+id/contactUs"
         android:title="Contact Us"

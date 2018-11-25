@@ -1,4 +1,4 @@
-package com.ipong.rani.bluecare;
+package com.ipong.rani.bluecare.components.adapters;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.ipong.rani.bluecare.R;
+import com.ipong.rani.bluecare.components.objects.PatientCondition;
 
 import java.util.ArrayList;
 import java.util.List;

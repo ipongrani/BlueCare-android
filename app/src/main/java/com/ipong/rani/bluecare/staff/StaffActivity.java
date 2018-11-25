@@ -1,4 +1,4 @@
-package com.ipong.rani.bluecare;
+package com.ipong.rani.bluecare.staff;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.api.Response;
@@ -17,8 +16,12 @@ import com.apollographql.apollo.exception.ApolloException;
 import com.apollographql.apollo.sample.GetPatientsQuery;
 import com.apollographql.apollo.sample.LogoutKeyMutation;
 import com.google.gson.Gson;
+import com.ipong.rani.bluecare.apolloClient.BlueCareApolloClient;
+import com.ipong.rani.bluecare.components.objects.Patient;
+import com.ipong.rani.bluecare.components.adapters.PatientAdapter;
+import com.ipong.rani.bluecare.R;
+import com.ipong.rani.bluecare.Splash;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -136,10 +139,10 @@ public class StaffActivity extends AppCompatActivity {
                                 condition = patientRecords.getString("condition");
 
 //                                JSONArray cond = patientRecords.getJSONArray("conditions");
-                                Patient x = new Patient(pName, pAge, condition);
+                                //Patient x = new Patient(pName, pAge, patientRecords);
 
                                 //x.setCondition(cond);
-                                patientList.add(x);
+                                //patientList.add(x);
 
 
                             } catch (JSONException e) {
@@ -164,7 +167,7 @@ public class StaffActivity extends AppCompatActivity {
                                         //Log.d("clicker: ", patientList.get(position).getCondition().toString());
 
 
-                                        //thisIntent = new Intent(StaffActivity.this, SinglePatientView.class);
+                                        //thisIntent = new Intent(StaffActivity.this, SingleDependentView.class);
                                         //thisIntent.putExtra("patientName", currentPatient.getpName());
                                         //thisIntent.putExtra("patientConditions", currentPatient.getCondition().toString());
                                         //startActivity(thisIntent);

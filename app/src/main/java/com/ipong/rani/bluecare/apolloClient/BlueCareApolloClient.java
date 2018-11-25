@@ -1,4 +1,4 @@
-package com.ipong.rani.bluecare;
+package com.ipong.rani.bluecare.apolloClient;
 
 import com.apollographql.apollo.ApolloClient;
 

@@ -1,6 +1,7 @@
 package com.ipong.rani.bluecare;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -11,19 +12,31 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.apollographql.apollo.ApolloCall;
+import com.apollographql.apollo.api.Response;
+import com.apollographql.apollo.exception.ApolloException;
+import com.apollographql.apollo.sample.LogoutKeyMutation;
+import com.ipong.rani.bluecare.apolloClient.BlueCareApolloClient;
+import com.ipong.rani.bluecare.components.objects.Patient;
+
+import java.io.File;
 import java.util.ArrayList;
+
+import javax.annotation.Nonnull;
 
 public class PatientRecord extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+    private Toolbar mToolbar;
     private NavigationView navigationView;
 
     private static final String TAG =  "PatientRecord";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,18 +47,19 @@ public class PatientRecord extends AppCompatActivity {
         ListView mListView = (ListView) findViewById(R.id.patient_list);
 
 
+
+
         navigationView = (NavigationView) findViewById( R.id.navigationMenu3 );
         drawerLayout = (DrawerLayout) findViewById( R.id.drawable_layout3 );
 
 
-        actionBarDrawerToggle = new ActionBarDrawerToggle( PatientRecord.this, drawerLayout, R.string
-                .drawer_open, R.string.drawer_close );
+        actionBarDrawerToggle = new ActionBarDrawerToggle( PatientRecord.this, drawerLayout, R.string.drawer_open, R.string.drawer_close );
 
         drawerLayout.addDrawerListener( actionBarDrawerToggle );
         actionBarDrawerToggle.syncState();
 //        getSupportActionBar().setDisplayHomeAsUpEnabled( true );
 
-        View navView = navigationView.inflateHeaderView( R.layout.navigation_header );
+       // View navView = navigationView.inflateHeaderView( R.layout.navigation_header );
 
         navigationView.setNavigationItemSelectedListener( new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -57,7 +71,7 @@ public class PatientRecord extends AppCompatActivity {
         } );
 
         /* END */
-
+/*
         //Create the patient Record sample
         Patient john = new Patient( "John", "101", "condition" );
         Patient john1 = new Patient( "John1", "102", "sick1" );
@@ -91,9 +105,9 @@ public class PatientRecord extends AppCompatActivity {
         patientsList.add( john11 );
         patientsList.add( john12 );
         patientsList.add( john13);
-
-        PatientAdapter adapter = new PatientAdapter( this, R.layout.adapter_view_layout_patient,patientsList);
-        mListView.setAdapter(adapter);
+*/
+        //PatientAdapter adapter = new PatientAdapter( this, R.layout.adapter_view_layout_patient,patientsList);
+        //mListView.setAdapter(adapter);
 
     }
 
@@ -137,8 +151,19 @@ public class PatientRecord extends AppCompatActivity {
 
                 break;
 
-            case R.id.btnLogout:
+            case R.id.logOut:
                 Toast.makeText( this, "Log out", Toast.LENGTH_SHORT ).show();
+                final SharedPreferences pref = getApplicationContext().getSharedPreferences("ACTIVE_USER", MODE_PRIVATE);
+                final String aK = pref.getString("authKey",null);
+
+                File sharedPreferenceFile = new File("/data/data/" + getPackageName()+ "/shared_prefs/ACTIVE_USER.xml");
+
+                logoutKey(aK);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.clear().apply();
+                sharedPreferenceFile.delete();
+                Intent i = new Intent(PatientRecord.this, Splash.class);
+                startActivity(i);
 
                 break;
 
@@ -146,5 +171,35 @@ public class PatientRecord extends AppCompatActivity {
     }
 
     /*END*/
+
+
+    private void logoutKey(String key){
+
+        BlueCareApolloClient.getBlueCareApolloClient().mutate(LogoutKeyMutation.builder()
+                ._authKey(key)
+                .build())
+                .enqueue(new ApolloCall.Callback<LogoutKeyMutation.Data>() {
+                    @Override
+                    public void onResponse(@Nonnull Response<LogoutKeyMutation.Data> response) {
+                      String res1 = response.data().logoutKey().msg().toString();
+
+                        Log.d("logoutKey: ",res1);
+                        /*
+                        MemberActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                //display.setText(res1);
+                            }
+                        });
+                        */
+                    }
+
+                    @Override
+                    public void onFailure(@Nonnull ApolloException e) {
+                        Log.d("onResponse", e.toString());
+                    }
+                });
+
+    }
 
 }

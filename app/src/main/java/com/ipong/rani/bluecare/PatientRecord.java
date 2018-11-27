@@ -185,7 +185,7 @@ public class PatientRecord extends AppCompatActivity {
 
                         Log.d("logoutKey: ",res1);
                         /*
-                        MemberActivity.this.runOnUiThread(new Runnable() {
+                        MainActivity.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 //display.setText(res1);

@@ -43,10 +43,10 @@ public class Patient {
 
     */
 
-    public Patient(String pName, String pStatus, String condition, JSONObject patientRecord) {
-        this.pName = pName;
-        this.pStatus = pStatus;
-        this.condition = condition;
+    public Patient(JSONObject patientRecord) {
+        //this.pName = pName;
+        //this.pStatus = pStatus;
+        //this.condition = condition;
         this.patientRecord = patientRecord;
 
     }

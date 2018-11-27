@@ -29,24 +29,17 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'org.jetbrains:annotations-java5:15.0'
 
-
-
-
-
     /* ------------ Apollo Dependency -------------- */
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     implementation 'com.squareup.okhttp3:okhttp:3.4.1'
 
-
     /* ------------ Image Dependency -------------- */
     implementation 'com.squareup.picasso:picasso:2.71828'
-
 
     /* ------------ For json Conversion -------------- */
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
     implementation 'org.json:json:20160810'
-
 
     //Design Support library dependency
     implementation 'com.android.support:design:28.0.0'

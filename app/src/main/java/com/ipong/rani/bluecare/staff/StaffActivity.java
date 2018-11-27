@@ -2,13 +2,19 @@ package com.ipong.rani.bluecare.staff;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.api.Response;
@@ -33,11 +39,33 @@ import javax.annotation.Nonnull;
 
 public class StaffActivity extends AppCompatActivity {
 
-    String res1;
-    Intent thisIntent;
-    ListView thisListView;
-    PatientAdapter thisAdapter;
-    final ArrayList<Patient> patientList = new ArrayList<>();
+    private TextView display;
+    private String res1;
+    private ListView thisListView;
+    private Intent thisIntent;
+    private PatientAdapter thisAdapter;
+    private final ArrayList<Patient> patientList = new ArrayList<>();
+    private String[] nameList;
+    private Menu slideMenu;
+    private String aK;
+    private SharedPreferences pref;
+
+    //Widget
+    private NavigationView navigationView;
+    private DrawerLayout drawerLayout;
+    private Toolbar mToolbar;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+
+
+    // ** Notification **//
+    //1. Notification Channel
+    //2. Notification Builder
+    //3. Notification Manager
+
+    public static final String CHANNEL_ID = "Notification FireBase";
+    private static final String CHANNEL_NAME = "Notification FireBase";
+    private static final String CHANNEL_DESC = "Notificaiton FireBase something";
+    private TextView textNotify;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +76,7 @@ public class StaffActivity extends AppCompatActivity {
         final SharedPreferences pref = getApplicationContext().getSharedPreferences("ACTIVE_USER", MODE_PRIVATE);
         final String aK = pref.getString("authKey",null);
 
-        thisListView = (ListView) findViewById(R.id.staff_patients_list);
+       // thisListView = (ListView) findViewById(R.id.staff_patients_list);
 
 
         getPatients(aK);
@@ -56,7 +84,7 @@ public class StaffActivity extends AppCompatActivity {
 
         thisAdapter = new PatientAdapter(this,patientList);
 
-
+/*
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,7 +100,7 @@ public class StaffActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
+*/
     }
 
 

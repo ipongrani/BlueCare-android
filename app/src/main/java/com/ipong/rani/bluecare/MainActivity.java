@@ -1,4 +1,4 @@
-package com.ipong.rani.bluecare.member;
+package com.ipong.rani.bluecare;
 
 
 
@@ -21,9 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.api.Response;
@@ -47,17 +45,13 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.ipong.rani.bluecare.AboutUs;
-import com.ipong.rani.bluecare.ContactUs;
-import com.ipong.rani.bluecare.R;
-import com.ipong.rani.bluecare.Splash;
 import com.ipong.rani.bluecare.apolloClient.BlueCareApolloClient;
 import com.ipong.rani.bluecare.components.objects.Patient;
 import com.ipong.rani.bluecare.components.adapters.PatientAdapter;
-import com.ipong.rani.bluecare.PatientRecord;
+import com.ipong.rani.bluecare.components.SingleDependentView;
 
 
-public class MemberActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
 
     private TextView display;
@@ -69,6 +63,7 @@ public class MemberActivity extends AppCompatActivity {
     private String[] nameList;
     private Menu slideMenu;
     private String aK;
+    private String membership;
     private SharedPreferences pref;
 
     //Widget
@@ -95,8 +90,11 @@ public class MemberActivity extends AppCompatActivity {
 
         pref = getApplicationContext().getSharedPreferences("ACTIVE_USER", MODE_PRIVATE);
         aK = pref.getString("authKey", null);
+        membership = pref.getString("membership", null);
+
 
         Log.d("ak here", aK);
+        Log.d("membership", membership);
 
 
         thisListView = (ListView) findViewById(R.id.patient_list_main);
@@ -111,13 +109,15 @@ public class MemberActivity extends AppCompatActivity {
         getPatients(aK);
         thisAdapter = new PatientAdapter(this, patientList);
 
+
+
         /* Action bar*/
         mToolbar = (Toolbar) findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Home");
 
 
-        actionBarDrawerToggle = new ActionBarDrawerToggle(MemberActivity.this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -181,7 +181,7 @@ public class MemberActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = pref.edit();
                 editor.clear().apply();
                 sharedPreferenceFile.delete();
-                Intent i = new Intent(MemberActivity.this, Splash.class);
+                Intent i = new Intent(MainActivity.this, Splash.class);
                 startActivity(i);
 
             }
@@ -245,7 +245,7 @@ public class MemberActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = pref.edit();
                     editor.clear().apply();
                     sharedPreferenceFile.delete();
-                    Intent i = new Intent(MemberActivity.this, Splash.class);
+                    Intent i = new Intent(MainActivity.this, Splash.class);
                     startActivity(i);
                 break;
             }
@@ -256,6 +256,7 @@ public class MemberActivity extends AppCompatActivity {
 
         private void UserMenuSelector (MenuItem item){
 
+
             int selected = item.getItemId();
             String title = item.getTitle().toString();
 
@@ -265,17 +266,14 @@ public class MemberActivity extends AppCompatActivity {
                 Log.d("selected title: ", title);
             } else {
                 Patient currentPatient = patientList.get(selected);
-                Log.d("selected profile: ", currentPatient.getpName() + " " + currentPatient.getpStatus());
-                Log.d("object patient:", currentPatient.getPatientRecord().toString());
-
-                thisIntent = new Intent(MemberActivity.this, SingleDependentView.class);
-                thisIntent.putExtra("patientName", currentPatient.getpName());
-                thisIntent.putExtra("patientConditions", currentPatient.getCondition().toString());
+                JSONObject patientRecord = currentPatient.getPatientRecord();
+                thisIntent = new Intent(MainActivity.this, SingleDependentView.class);
+                thisIntent.putExtra("patientRecord", patientRecord.toString());
                 startActivity(thisIntent);
             }
 
-
         }
+
 
         /*END*/
 
@@ -310,21 +308,21 @@ public class MemberActivity extends AppCompatActivity {
 
                                 try {
 
-                                    JSONObject patientRecords = new JSONObject(jsonString);
+                                    JSONObject patientRecord = new JSONObject(jsonString);
 
 
 
-                                    pName = patientRecords.getString("firstName");
-                                    pStatus = patientRecords.getString("status");
-                                    condition = patientRecords.getString("conditions");
+                                    pName = patientRecord.getString("firstName");
+                                    //pStatus = patientRecords.getString("status");
+                                    //condition = patientRecords.getString("conditions");
 
                                     nameList[i] = pName;
 
                                     //Log.d("namelist in loop: ", nameList[i].toString());
                                     //JSONArray condition = patientRecords.getJSONArray("conditions");
 
-                                    Patient x = new Patient(pName, pStatus, condition, patientRecords);
-                                    x.setCondition(condition);
+                                    Patient x = new Patient(patientRecord);
+                                   // x.setCondition(condition);
                                     patientList.add(x);
 
 
@@ -333,7 +331,7 @@ public class MemberActivity extends AppCompatActivity {
                                 }
                             }
 
-                            MemberActivity.this.runOnUiThread(new Runnable() {
+                            MainActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     // patientList.add(new Patient(name, cName, cStatus));
@@ -350,15 +348,30 @@ public class MemberActivity extends AppCompatActivity {
                                     thisListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                                            Patient currentPatient = patientList.get(position);
+                                            //Patient currentPatient = patientList.get(position);
+
+                                            //int selected = item.getItemId();
+                                            //String title = item.getTitle().toString();
+
+                                            //Log.d("selected: ", title);
+
+                                            //if(title.equals("patientMenu")) {
+                                            //    Log.d("selected title: ", title);
+                                            //} else {
+                                                Patient currentPatient = patientList.get(position);
+                                                JSONObject patientRecord = currentPatient.getPatientRecord();
+                                                thisIntent = new Intent(MainActivity.this, SingleDependentView.class);
+                                                thisIntent.putExtra("patientRecord", patientRecord.toString());
+                                                startActivity(thisIntent);
+                                            //}
 
                                             //Log.d("clicker: ", patientList.get(position).getCondition().toString());
 
 
-                                            thisIntent = new Intent(MemberActivity.this, SingleDependentView.class);
-                                            thisIntent.putExtra("patientName", currentPatient.getpName());
-                                            thisIntent.putExtra("patientConditions", currentPatient.getCondition().toString());
-                                            startActivity(thisIntent);
+                                            //thisIntent = new Intent(MainActivity.this, SingleDependentView.class);
+                                            //thisIntent.putExtra("patientName", currentPatient.getpName());
+                                            //thisIntent.putExtra("patientConditions", currentPatient.getCondition().toString());
+                                            //startActivity(thisIntent);
 
                                         }
 
@@ -388,7 +401,7 @@ public class MemberActivity extends AppCompatActivity {
                         public void onResponse(@Nonnull Response<AuthMutation.Data> response) {
                             res1 = response.data().authUser().msg().toString();
 
-                            MemberActivity.this.runOnUiThread(new Runnable() {
+                            MainActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     display.setText(res1);
@@ -417,7 +430,7 @@ public class MemberActivity extends AppCompatActivity {
 
                             Log.d("logoutKey: ", res1);
 
-                            MemberActivity.this.runOnUiThread(new Runnable() {
+                            MainActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     //display.setText(res1);

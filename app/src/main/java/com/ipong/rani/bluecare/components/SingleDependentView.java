@@ -1,11 +1,14 @@
 package com.ipong.rani.bluecare.components;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,6 +30,7 @@ public class SingleDependentView extends AppCompatActivity {
     private TextView pStatus;
     private TextView pDobLabel;
     private TextView pDobContent;
+    private Button btnAddUpdate;
     private LinearLayout mdBio;
     private LinearLayout mainLayout;
     private JSONArray conditions;
@@ -45,6 +49,7 @@ public class SingleDependentView extends AppCompatActivity {
         //pDobContent = (TextView) findViewById(R.id.pDobContent);
         //mdBio = (LinearLayout) findViewById(R.id.mdBioLayout);
         mainLayout = (LinearLayout) findViewById(R.id.personalInfoLayout);
+        //btnAddUpdate = (Button) findViewById(R.id.btnAddUpdate);
 
 
         Bundle bundle = getIntent().getExtras();
@@ -134,6 +139,8 @@ public class SingleDependentView extends AppCompatActivity {
             //pDobContent.setText(record.getString("birthDate"));
 
 
+
+
             /*
             final TextView rowTextView1 = new TextView(this);
             final TextView rowTextView2 = new TextView(this);
@@ -165,6 +172,7 @@ public class SingleDependentView extends AppCompatActivity {
             mdBio.addView(rowTextView6);
             mdBio.addView(rowTextView7);
             */
+
 
 
 

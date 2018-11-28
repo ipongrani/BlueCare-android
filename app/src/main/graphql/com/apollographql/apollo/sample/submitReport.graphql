@@ -1,0 +1,5 @@
+mutation submitReport($_authToken: String!, $patientName: String!, $patientReport: String!, $reportTopic: String!){
+  submitReport(_authToken: $_authToken, patientName: $patientName, patientReport: $patientReport, reportTopic: $reportTopic){
+    msg
+  }
+}

@@ -1,5 +1,5 @@
- query getPatients ($_authKey: String!){
-      getPatients (_authKey: $_authKey){
+ query getPatients ($_authToken: String!){
+      getPatients (_authToken: $_authToken){
         msg
       	patientRecords {
          firstName

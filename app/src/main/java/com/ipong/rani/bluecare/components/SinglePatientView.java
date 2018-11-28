@@ -1,11 +1,14 @@
 package com.ipong.rani.bluecare.components;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,6 +35,9 @@ public class SinglePatientView extends AppCompatActivity {
     private LinearLayout mainLayout;
     private JSONArray conditions;
     private ListView thisListView;
+    private Button btnAddUpdate;
+    private JSONObject record;
+    private JSONObject medicalBio;
     private PatientConditionAdapter thisAdapter;
     private final ArrayList<PatientCondition> conditionList = new ArrayList<>();
 
@@ -43,6 +49,7 @@ public class SinglePatientView extends AppCompatActivity {
         setContentView(R.layout.activity_single_patient_view);
 
         mainLayout = (LinearLayout) findViewById(R.id.personalInfoLayoutStaff);
+        btnAddUpdate = (Button) findViewById(R.id.btnAddUpdate);
 
 
         Bundle bundle = getIntent().getExtras();
@@ -50,8 +57,8 @@ public class SinglePatientView extends AppCompatActivity {
 
 
         try {
-            JSONObject record = new JSONObject(pR);
-            JSONObject medicalBio = (JSONObject) record.getJSONArray("medicalBio").get(0);
+             record = new JSONObject(pR);
+             medicalBio = (JSONObject) record.getJSONArray("medicalBio").get(0);
 
             //Log.d("medical bio", medicalBio.toString());
             Log.d("record keys", record.names().toString());
@@ -109,6 +116,29 @@ public class SinglePatientView extends AppCompatActivity {
             thisAdapter = new PatientConditionAdapter(this, conditionList);
 
             DynamicListView.setAdapter(thisAdapter);
+
+
+
+            btnAddUpdate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Log.d("btn Add","clicked");
+
+                    try {
+
+                        Intent u = new Intent(SinglePatientView.this, AddUpdate.class);
+                        u.putExtra("firstName", record.getString("firstName").toString() );
+                        u.putExtra("lastName",  record.getString("lastName").toString() );
+                        startActivity(u);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
+
 
         } catch (JSONException e) {
             e.printStackTrace();

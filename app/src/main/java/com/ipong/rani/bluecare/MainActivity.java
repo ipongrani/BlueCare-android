@@ -46,6 +46,7 @@ import javax.annotation.Nonnull;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.ipong.rani.bluecare.apolloClient.BlueCareApolloClient;
+import com.ipong.rani.bluecare.components.SinglePatientView;
 import com.ipong.rani.bluecare.components.objects.Patient;
 import com.ipong.rani.bluecare.components.adapters.PatientAdapter;
 import com.ipong.rani.bluecare.components.SingleDependentView;
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_member);
 
         pref = getApplicationContext().getSharedPreferences("ACTIVE_USER", MODE_PRIVATE);
-        aK = pref.getString("authKey", null);
+        aK = pref.getString("authToken", null);
         membership = pref.getString("membership", null);
 
 
@@ -283,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
             //final ArrayList<Patient> pl = new ArrayList<>();
 
             BlueCareApolloClient.getBlueCareApolloClient().query(GetPatientsQuery.builder()
-                    ._authKey(key)
+                    ._authToken(key)
                     .build())
                     .enqueue(new ApolloCall.Callback<GetPatientsQuery.Data>() {
 
@@ -355,15 +356,19 @@ public class MainActivity extends AppCompatActivity {
 
                                             //Log.d("selected: ", title);
 
-                                            //if(title.equals("patientMenu")) {
-                                            //    Log.d("selected title: ", title);
-                                            //} else {
+                                            if(membership.equals("Staff")) {
+                                                Patient currentPatient = patientList.get(position);
+                                                JSONObject patientRecord = currentPatient.getPatientRecord();
+                                                thisIntent = new Intent(MainActivity.this, SinglePatientView.class);
+                                                thisIntent.putExtra("patientRecord", patientRecord.toString());
+                                                startActivity(thisIntent);
+                                            } else {
                                                 Patient currentPatient = patientList.get(position);
                                                 JSONObject patientRecord = currentPatient.getPatientRecord();
                                                 thisIntent = new Intent(MainActivity.this, SingleDependentView.class);
                                                 thisIntent.putExtra("patientRecord", patientRecord.toString());
                                                 startActivity(thisIntent);
-                                            //}
+                                            }
 
                                             //Log.d("clicker: ", patientList.get(position).getCondition().toString());
 

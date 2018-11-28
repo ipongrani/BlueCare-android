@@ -74,7 +74,7 @@ public class StaffActivity extends AppCompatActivity {
 
         Button logout = (Button) findViewById(R.id.btnLogoutStaff);
         final SharedPreferences pref = getApplicationContext().getSharedPreferences("ACTIVE_USER", MODE_PRIVATE);
-        final String aK = pref.getString("authKey",null);
+        final String aK = pref.getString("authToken",null);
 
        // thisListView = (ListView) findViewById(R.id.staff_patients_list);
 
@@ -133,7 +133,7 @@ public class StaffActivity extends AppCompatActivity {
         //final ArrayList<Patient> pl = new ArrayList<>();
 
         BlueCareApolloClient.getBlueCareApolloClient().query(GetPatientsQuery.builder()
-                ._authKey(key)
+                ._authToken(key)
                 .build())
                 .enqueue(new ApolloCall.Callback<GetPatientsQuery.Data>() {
 

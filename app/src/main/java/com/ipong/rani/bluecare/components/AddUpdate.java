@@ -64,22 +64,28 @@ public class AddUpdate extends AppCompatActivity {
 
         updateName.setText(firstName + " " + lastName);
 
-        try {
-            tpc = txtTopic.getText().toString();
-            rep = txtReport.getText().toString();
-        } catch (Exception e) {
-            Log.d("err", e.toString());
-        }
+
 
 
         btnSubmitReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("submit", firstName);
-                Log.d("ak here", aK);
-                Log.d("rep here", rep);
-                Log.d("TPC", tpc);
-                //submitReport(aK, firstName, rep, tpc);
+
+                try {
+                    tpc = txtTopic.getText().toString();
+                    rep = txtReport.getText().toString();
+
+                    Log.d("submit", firstName + " " + lastName);
+                    Log.d("ak here", aK);
+                    Log.d("rep here", rep);
+                    Log.d("TPC", tpc);
+
+                    submitReport(aK, firstName, lastName, rep, tpc);
+
+                } catch (Exception e) {
+                    Log.d("err", e.toString());
+                }
+
             }
         });
 
@@ -88,11 +94,12 @@ public class AddUpdate extends AppCompatActivity {
     }
 
 
-    private void submitReport (String token, String pN, String pR, String pT) {
+    private void submitReport (String token, String pN, String lN, String pR, String pT) {
 
         BlueCareApolloClient.getBlueCareApolloClient().mutate(SubmitReportMutation.builder()
                 ._authToken(token)
-                .patientName(pN)
+                .patientFirstName(pN)
+                .patientLastName(lN)
                 .patientReport(pR)
                 .reportTopic(pT)
                 .build())
@@ -109,7 +116,7 @@ public class AddUpdate extends AppCompatActivity {
 
                     @Override
                     public void onFailure(@Nonnull ApolloException e) {
-                        //Log.d("onResponse", e.toString());
+                        Log.d("onResponse", e.toString());
                     }
                 });
     }

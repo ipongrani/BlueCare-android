@@ -62,8 +62,10 @@ public class MainActivity extends AppCompatActivity {
     private PatientAdapter thisAdapter;
     private final ArrayList<Patient> patientList = new ArrayList<>();
     private String[] nameList;
+    private String[] lastNameList;
     private Menu slideMenu;
     private String aK;
+    private String kK;
     private String membership;
     private SharedPreferences pref;
 
@@ -91,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
         pref = getApplicationContext().getSharedPreferences("ACTIVE_USER", MODE_PRIVATE);
         aK = pref.getString("authToken", null);
+        kK = pref.getString("authKey", null);
         membership = pref.getString("membership", null);
 
 
@@ -151,7 +154,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        FirebaseMessaging.getInstance().subscribeToTopic("relative");
+
+
+       // FirebaseMessaging.getInstance().subscribeToTopic("relative");
 
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
@@ -242,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
                 case "Log Out":
                     File sharedPreferenceFile = new File("/data/data/" + getPackageName()+ "/shared_prefs/ACTIVE_USER.xml");
 
-                    logoutKey(aK);
+                    logoutKey(kK);
                     SharedPreferences.Editor editor = pref.edit();
                     editor.clear().apply();
                     sharedPreferenceFile.delete();
@@ -294,10 +299,12 @@ public class MainActivity extends AppCompatActivity {
                             res1 = response.data().getPatients().msg().toString();
                             List res = response.data().getPatients().patientRecords();
                             String pName;
+                            String lName;
                             String pStatus;
                             String condition;
 
                             nameList = new String[res.size()];
+                            lastNameList = new String[res.size()];
 
                             for (int i = 0; i != res.size(); i++) {
                                 Object obj = (Object) res.get(i);
@@ -314,10 +321,12 @@ public class MainActivity extends AppCompatActivity {
 
 
                                     pName = patientRecord.getString("firstName");
+                                    lName = patientRecord.getString("lastName");
                                     //pStatus = patientRecords.getString("status");
                                     //condition = patientRecords.getString("conditions");
 
                                     nameList[i] = pName;
+                                    lastNameList[i] = lName;
 
                                     //Log.d("namelist in loop: ", nameList[i].toString());
                                     //JSONArray condition = patientRecords.getJSONArray("conditions");
@@ -340,7 +349,9 @@ public class MainActivity extends AppCompatActivity {
 
                                     for (int j = 0; j < nameList.length; j++) {
                                         slideMenu.add(0, j, 0,nameList[j]);
-
+                                        //Log.d("topic register", nameList[j]);
+                                        String tpc = nameList[j].replaceAll("\\s+","") + lastNameList[j];
+                                        FirebaseMessaging.getInstance().subscribeToTopic(tpc);
                                     }
 
 

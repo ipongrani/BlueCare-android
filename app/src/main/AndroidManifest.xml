@@ -60,12 +60,10 @@
             android:name="firebase_analytics_collection_enabled"
             android:value="false" />
 
-        <activity android:name=".AboutUs" />
-        <activity android:name=".ContactUs" />
-        <activity android:name=".PatientRecord" />
         <activity android:name=".firebaseNotification.Notification" />
         <activity android:name=".components.SinglePatientView" />
-        <activity android:name=".components.AddUpdate"></activity>
+        <activity android:name=".components.AddUpdate" />
+        <activity android:name=".components.SingleNotifView"></activity>
     </application>
 
 </manifest>

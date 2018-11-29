@@ -8,6 +8,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -40,6 +41,8 @@ public class SinglePatientView extends AppCompatActivity {
     private Button btnAddUpdate;
     private JSONObject record;
     private JSONObject medicalBio;
+    private String pR;
+    private String reports;
     private NotificationsAdapter thisAdapter;
     private final ArrayList<PatientCondition> conditionList = new ArrayList<>();
     private final ArrayList<SingleNotif> updateDataList = new ArrayList<>();
@@ -56,8 +59,8 @@ public class SinglePatientView extends AppCompatActivity {
 
 
         Bundle bundle = getIntent().getExtras();
-        String pR = bundle.getString("patientRecord");
-        String reports = bundle.getString("reports");
+        pR = bundle.getString("patientRecord");
+        reports = bundle.getString("reports");
 
 
         try {
@@ -118,7 +121,7 @@ public class SinglePatientView extends AppCompatActivity {
 
                 Log.d("tpc", notif.getString("topic"));
 
-                SingleNotif ntf = new SingleNotif(notif.getString("topic"), notif.getString("patientReport"));
+                SingleNotif ntf = new SingleNotif(notif.getString("topic"), notif.getString("patientReport"), notif.getString("datePublished"));
                 updateDataList.add(ntf);
             }
 
@@ -127,6 +130,21 @@ public class SinglePatientView extends AppCompatActivity {
             thisAdapter = new NotificationsAdapter(this, updateDataList);
 
             DynamicListView.setAdapter(thisAdapter);
+
+            DynamicListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                    SingleNotif currentNotif = updateDataList.get(position);
+                    Intent thisIntent = new Intent(SinglePatientView.this, SingleNotifView.class);
+                    thisIntent.putExtra("topic", currentNotif.getTopic());
+                    thisIntent.putExtra("date", currentNotif.getDate());
+                    thisIntent.putExtra("report", currentNotif.getPatientReport());
+                    startActivity(thisIntent);
+
+                }
+
+            });
 
 
 

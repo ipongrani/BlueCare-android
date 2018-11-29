@@ -59,14 +59,6 @@ public class NotificationsAdapter extends ArrayAdapter<SingleNotif> {
         Picasso.get().load("https://images.pexels.com/photos/1282169/pexels-photo-1282169.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940").into(dImg);
 
 
-        //TextView pStatus = (TextView) listItem.findViewById(R.id.txtViewRep);
-        //pStatus.setText(currentItem.getpStatus());
-
-        //ImageView dImg = (ImageView) listItem.findViewById((R.id.imgNotification));
-        //Picasso.get().load("https://images.pexels.com/photos/1282169/pexels-photo-1282169.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940").into(dImg);
-
-        //TextView pStatus = (TextView) listItem.findViewById(R.id.txtViewConditonStatus);
-        //pStatus.setText(currentItem.getpConditionStatus());
 
         return listItem;
     }

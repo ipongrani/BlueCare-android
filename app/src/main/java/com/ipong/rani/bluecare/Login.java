@@ -16,7 +16,6 @@ import com.apollographql.apollo.exception.ApolloException;
 import com.apollographql.apollo.sample.AuthMutation;
 import com.ipong.rani.bluecare.apolloClient.BlueCareApolloClient;
 import com.ipong.rani.bluecare.MainActivity;
-import com.ipong.rani.bluecare.staff.StaffActivity;
 
 import javax.annotation.Nonnull;
 
@@ -87,13 +86,9 @@ public class Login extends AppCompatActivity {
                                 editor.putString("membership", membership);
                                 editor.commit();
 
-                               // if(membership.equals("Staff")){
-                               //     Intent i = new Intent(Login.this, StaffActivity.class);
-                               //     startActivity(i);
-                               // } else if(membership.equals("Member")){
-                                    Intent i = new Intent(Login.this, MainActivity.class);
-                                    startActivity(i);
-                               // }
+
+                                Intent i = new Intent(Login.this, MainActivity.class);
+                                startActivity(i);
 
 
                                 Login.this.runOnUiThread(new Runnable() {
@@ -103,8 +98,6 @@ public class Login extends AppCompatActivity {
                                     }
                                 });
 
-                               // Intent i = new Intent(Login.this, MemberActivity.class);
-                               // startActivity(i);
 
                             }
 

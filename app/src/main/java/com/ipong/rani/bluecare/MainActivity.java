@@ -18,6 +18,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -46,6 +48,7 @@ import javax.annotation.Nonnull;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.ipong.rani.bluecare.apolloClient.BlueCareApolloClient;
 import com.ipong.rani.bluecare.components.SingleDependentView;
+import com.ipong.rani.bluecare.components.SingleNotifView;
 import com.ipong.rani.bluecare.components.SinglePatientView;
 import com.ipong.rani.bluecare.components.adapters.NotificationsAdapter;
 import com.ipong.rani.bluecare.components.objects.NotificationData;
@@ -89,30 +92,20 @@ public class MainActivity extends AppCompatActivity {
     public static final String CHANNEL_ID = "NotificationData FireBase";
     private static final String CHANNEL_NAME = "NotificationData FireBase";
     private static final String CHANNEL_DESC = "Notificaiton FireBase something";
-    private TextView textNotify;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_member);
+        setContentView(R.layout.activity_main);
 
         pref = getApplicationContext().getSharedPreferences("ACTIVE_USER", MODE_PRIVATE);
         aK = pref.getString("authToken", null);
         kK = pref.getString("authKey", null);
         membership = pref.getString("membership", null);
-
-
-        //Log.d("ak here", aK);
-        //Log.d("membership", membership);
-
-
         thisListView = (ListView) findViewById(R.id.patient_list_main);
         navigationView = (NavigationView) findViewById(R.id.navigationMenu);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawable_layout);
-
-
-
-        final TextView textNotify = (TextView) findViewById(R.id.textViewToken);
 
 
         getPatients(aK);
@@ -169,10 +162,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<InstanceIdResult> task) {
                         if (task.isSuccessful()) {
                             String token = task.getResult().getToken();
-                            //textNotify.setText( "Token: " + token);
-                            // Log.d("Token",token );
                         } else {
-//                            textNotify.setText( task.getException().getMessage() );
                             Log.d("Fail", "Token is not generated");
                         }
                     }
@@ -180,46 +170,15 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        /*End*/
-
-/*
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                File sharedPreferenceFile = new File("/data/data/" + getPackageName()+ "/shared_prefs/ACTIVE_USER.xml");
-
-                logoutKey(aK);
-                SharedPreferences.Editor editor = pref.edit();
-                editor.clear().apply();
-                sharedPreferenceFile.delete();
-                Intent i = new Intent(MainActivity.this, Splash.class);
-                startActivity(i);
-
-            }
-        });
-
-*/
-
-
 
     }
+
+
         /*Menu bar*/
-
-
         @Override
-        public boolean onCreateOptionsMenu(Menu menu){
-            // Inflate the menu; this adds items to the action bar if it is present.
-            //getMenuInflater().inflate(R.menu.navigation_menu, menu);
-
+        public boolean onCreateOptionsMenu (Menu menu) {
             super.onCreateOptionsMenu(menu);
-
-            //String[] list = new String[]{"add","new","menu","here"};
             menu.add("Log Out");
-            menu.add("Log Out");
-            menu.add("Log Out");
-            menu.add("Log Out");
-
-
             return true;
         }
 
@@ -227,17 +186,12 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onOptionsItemSelected (MenuItem item){
-
             if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-
                 return true;
             } else {
-
                 topMenuSelector(item);
             }
-
             return super.onOptionsItemSelected(item);
-
         }
 
 
@@ -245,13 +199,10 @@ public class MainActivity extends AppCompatActivity {
 
         private void topMenuSelector (MenuItem item){
             Log.d("top item menu: ", item.getTitle().toString());
-
             String selectTop = item.getTitle().toString();
-
             switch (selectTop) {
                 case "Log Out":
                     File sharedPreferenceFile = new File("/data/data/" + getPackageName()+ "/shared_prefs/ACTIVE_USER.xml");
-
                     logoutKey(kK);
                     SharedPreferences.Editor editor = pref.edit();
                     editor.clear().apply();
@@ -267,14 +218,11 @@ public class MainActivity extends AppCompatActivity {
 
         private void UserMenuSelector (MenuItem item){
 
-
             int selected = item.getItemId();
             String title = item.getTitle().toString();
 
-            Log.d("selected: ", title);
 
-
-            if(title.equals("patientMenu")) {
+            if(title.equals("Patient List")) {
                 Log.d("selected title: ", title);
             } else {
                 Patient currentPatient = patientList.get(selected);
@@ -282,9 +230,6 @@ public class MainActivity extends AppCompatActivity {
 
                 JSONObject patientRecord = currentPatient.getPatientRecord();
                 JSONArray n = currentNotificationData.getNotification();
-
-                //Log.d("record", currentPatient.toString());
-                //Log.d("notif", n.toString());
 
                 if(membership.equals("Staff")){
                     thisIntent = new Intent(MainActivity.this, SinglePatientView.class);
@@ -310,8 +255,6 @@ public class MainActivity extends AppCompatActivity {
 
         private ArrayList<Patient> getPatients (String key){
 
-            //final ArrayList<Patient> pl = new ArrayList<>();
-
             BlueCareApolloClient.getBlueCareApolloClient().query(GetPatientsQuery.builder()
                     ._authToken(key)
                     .build())
@@ -324,46 +267,35 @@ public class MainActivity extends AppCompatActivity {
                             List res = response.data().getPatients().patientRecords();
                             String pName;
                             String lName;
-                            String pStatus;
-                            String condition;
 
                             nameList = new String[res.size()];
                             lastNameList = new String[res.size()];
 
                             for (int i = 0; i != res.size(); i++) {
+
                                 Object obj = (Object) res.get(i);
                                 Gson gson = new Gson();
                                 String jsonString = gson.toJson(obj);
-
-                                //Log.d("jsonstring here:", jsonString);
-
 
                                 try {
 
                                     JSONObject patientRecord = new JSONObject(jsonString);
 
-                                   // Log.d("patient record", patientRecord.toString());
+                                    Log.d("patientRecord in main", patientRecord.toString());
 
                                     pName = patientRecord.getString("firstName");
                                     lName = patientRecord.getString("lastName");
-                                    //pStatus = patientRecords.getString("status");
-                                    //condition = patientRecords.getString("conditions");
 
                                     nameList[i] = pName;
-
                                     lastNameList[i] = lName;
-
-                                    //Log.d("reports", patientRecord.getString("reports"));
-
-
-                                    //Log.d("namelist in loop: ", nameList[i].toString());
-                                    //JSONArray condition = patientRecords.getJSONArray("conditions");
 
                                     NotificationData n = new NotificationData(new JSONArray(patientRecord.getString("reports")));
                                     Patient x = new Patient(patientRecord);
-                                   // x.setCondition(condition);
+
                                     patientList.add(x);
                                     notificationDataList.add(n);
+
+                                    Log.d("reports in main", patientRecord.getString("reports").toString());
 
 
                                 } catch (JSONException e) {
@@ -374,24 +306,16 @@ public class MainActivity extends AppCompatActivity {
                             MainActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    // patientList.add(new Patient(name, cName, cStatus));
-                                    //Log.d("nameList: ", nameList.toString());
-
-
-                                    //Log.d("notification", notificationDataList.get(0).getNotification().toString());
-                                    //Log.d("notification list", notificationDataList.toString());
-
-
                                     for (int j = 0; j < notificationDataList.size(); j++) {
                                         JSONArray ntf = notificationDataList.get(j).getNotification();
                                         try {
                                             for (int x = 0; x < ntf.length(); x++ ) {
-                                                //Log.d("lsItemNotif", ntf.get(x).toString());
-                                                //Log.d("topic", ntf.getJSONObject(x).getString("topic"));
-                                                //Log.d("report", ntf.getJSONObject(x).getString("patientReport"));
 
-                                                SingleNotif sn = new SingleNotif(ntf.getJSONObject(x).getString("topic"), ntf.getJSONObject(x).getString("patientReport"));
-                                                singleNotifList.add(sn);
+                                            SingleNotif sn = new SingleNotif(ntf.getJSONObject(x).getString("topic"),
+                                                                             ntf.getJSONObject(x).getString("patientReport"),
+                                                                             ntf.getJSONObject(x).getString("datePublished"));
+                                            singleNotifList.add(sn);
+
                                             }
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -401,9 +325,9 @@ public class MainActivity extends AppCompatActivity {
 
 
                                     for (int j = 0; j < nameList.length; j++) {
-                                        slideMenu.add(0, j, 0,nameList[j]);
 
-                                        //Log.d("topic register", nameList[j]);
+                                        slideMenu.add(0, j, 0,nameList[j] + " " + lastNameList[j]);
+
                                         String tpc = nameList[j].replaceAll("\\s+","") + lastNameList[j];
                                         FirebaseMessaging.getInstance().subscribeToTopic(tpc);
 
@@ -412,43 +336,32 @@ public class MainActivity extends AppCompatActivity {
 
                                     thisListView.setAdapter(notifAdapter);
 
-                                    /*
+
                                     thisListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                                            //Patient currentPatient = patientList.get(position);
-
-                                            //int selected = item.getItemId();
-                                            //String title = item.getTitle().toString();
-
-                                            //Log.d("selected: ", title);
 
                                             if(membership.equals("Staff")) {
-                                                Patient currentPatient = patientList.get(position);
-                                                JSONObject patientRecord = currentPatient.getPatientRecord();
-                                                thisIntent = new Intent(MainActivity.this, SinglePatientView.class);
-                                                thisIntent.putExtra("patientRecord", patientRecord.toString());
+                                                SingleNotif currentNotif = singleNotifList.get(position);
+                                                thisIntent = new Intent(MainActivity.this, SingleNotifView.class);
+                                                thisIntent.putExtra("topic", currentNotif.getTopic());
+                                                thisIntent.putExtra("date", currentNotif.getDate());
+                                                thisIntent.putExtra("report", currentNotif.getPatientReport());
                                                 startActivity(thisIntent);
                                             } else {
-                                                Patient currentPatient = patientList.get(position);
-                                                JSONObject patientRecord = currentPatient.getPatientRecord();
-                                                thisIntent = new Intent(MainActivity.this, SingleDependentView.class);
-                                                thisIntent.putExtra("patientRecord", patientRecord.toString());
+                                                SingleNotif currentNotif = singleNotifList.get(position);
+                                                thisIntent = new Intent(MainActivity.this, SingleNotifView.class);
+                                                thisIntent.putExtra("topic", currentNotif.getTopic());
+                                                thisIntent.putExtra("date", currentNotif.getDate());
+                                                thisIntent.putExtra("report", currentNotif.getPatientReport());
                                                 startActivity(thisIntent);
                                             }
 
-                                            //Log.d("clicker: ", patientList.get(position).getCondition().toString());
-
-
-                                            //thisIntent = new Intent(MainActivity.this, SingleDependentView.class);
-                                            //thisIntent.putExtra("patientName", currentPatient.getpName());
-                                            //thisIntent.putExtra("patientConditions", currentPatient.getCondition().toString());
-                                            //startActivity(thisIntent);
 
                                         }
 
                                     });
-                                    */
+
                                 }
                             });
 

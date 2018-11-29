@@ -27,16 +27,10 @@ public class Splash extends AppCompatActivity {
 
                 @Override
                 public void run() {
-                     //This method will be executed once the timer is over
-                   // if(membership.equals("Member")){
+
                         Intent i = new Intent(Splash.this, MainActivity.class);
                         startActivity(i);
                         finish();
-                    //} else if (membership.equals("Staff")){
-                   //     Intent i = new Intent(Splash.this, StaffActivity.class);
-                   //     startActivity(i);
-                   //     finish();
-                   // }
 
                 }
             }, 1000);

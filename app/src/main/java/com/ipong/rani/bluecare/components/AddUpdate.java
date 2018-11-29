@@ -2,6 +2,7 @@ package com.ipong.rani.bluecare.components;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.apollographql.apollo.sample.SubmitReportMutation;
 import com.google.gson.Gson;
 import com.ipong.rani.bluecare.MainActivity;
 import com.ipong.rani.bluecare.R;
+import com.ipong.rani.bluecare.Splash;
 import com.ipong.rani.bluecare.apolloClient.BlueCareApolloClient;
 import com.ipong.rani.bluecare.components.objects.Patient;
 
@@ -37,7 +39,6 @@ public class AddUpdate extends AppCompatActivity {
     private EditText txtReport;
     private TextView updateName;
     private String aK;
-    private String membership;
     private SharedPreferences pref;
     private String tpc;
     private String rep;
@@ -54,7 +55,7 @@ public class AddUpdate extends AppCompatActivity {
 
         pref = getApplicationContext().getSharedPreferences("ACTIVE_USER", MODE_PRIVATE);
         aK = pref.getString("authToken", null);
-        membership = pref.getString("membership", null);
+
 
 
         Log.d("ak here", aK);
@@ -114,7 +115,20 @@ public class AddUpdate extends AppCompatActivity {
                         String msg = response.data().submitReport().msg().toString();
 
                         AddUpdate.this.runOnUiThread(() -> {
-                          Toast.makeText( AddUpdate.this, msg, Toast.LENGTH_SHORT ).show();
+
+                            Toast.makeText( AddUpdate.this, msg, Toast.LENGTH_SHORT ).show();
+                            new Handler().postDelayed(new Runnable() {
+
+                                @Override
+                                public void run() {
+
+                                    Intent i = new Intent(AddUpdate.this, MainActivity.class);
+                                    startActivity(i);
+                                    finish();
+
+                                }
+                            }, 1000);
+
                         });
                     }
 

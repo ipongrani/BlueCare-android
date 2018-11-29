@@ -57,13 +57,13 @@ public class StaffActivity extends AppCompatActivity {
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
 
-    // ** Notification **//
-    //1. Notification Channel
-    //2. Notification Builder
-    //3. Notification Manager
+    // ** NotificationData **//
+    //1. NotificationData Channel
+    //2. NotificationData Builder
+    //3. NotificationData Manager
 
-    public static final String CHANNEL_ID = "Notification FireBase";
-    private static final String CHANNEL_NAME = "Notification FireBase";
+    public static final String CHANNEL_ID = "NotificationData FireBase";
+    private static final String CHANNEL_NAME = "NotificationData FireBase";
     private static final String CHANNEL_DESC = "Notificaiton FireBase something";
     private TextView textNotify;
 

@@ -24,6 +24,7 @@ import com.ipong.rani.bluecare.components.objects.Patient;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -46,9 +47,9 @@ public class AddUpdate extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_update);
         btnSubmitReport = (Button) findViewById(R.id.btnSubmitReport);
+        updateName = (TextView) findViewById(R.id.updateName);
         txtTopic = (EditText) findViewById(R.id.eTxtTopic);
         txtReport = (EditText) findViewById(R.id.eTxtReport);
-        updateName = (TextView) findViewById(R.id.updateName);
 
 
         pref = getApplicationContext().getSharedPreferences("ACTIVE_USER", MODE_PRIVATE);
@@ -67,6 +68,8 @@ public class AddUpdate extends AppCompatActivity {
 
 
 
+
+        //rep = txtReport.getText().toString();
         btnSubmitReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +78,7 @@ public class AddUpdate extends AppCompatActivity {
                     tpc = txtTopic.getText().toString();
                     rep = txtReport.getText().toString();
 
+
                     Log.d("submit", firstName + " " + lastName);
                     Log.d("ak here", aK);
                     Log.d("rep here", rep);
@@ -82,13 +86,13 @@ public class AddUpdate extends AppCompatActivity {
 
                     submitReport(aK, firstName, lastName, rep, tpc);
 
+
                 } catch (Exception e) {
                     Log.d("err", e.toString());
                 }
 
             }
         });
-
 
 
     }

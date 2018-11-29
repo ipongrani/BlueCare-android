@@ -8,7 +8,7 @@ import com.ipong.rani.bluecare.MainActivity;
 import com.ipong.rani.bluecare.R;
 
 public class NotificationHelper {
-    /* Notification publish*/
+    /* NotificationData publish*/
     public static void displayNotification(Context context, String title, String body) {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder( context, MainActivity.CHANNEL_ID )

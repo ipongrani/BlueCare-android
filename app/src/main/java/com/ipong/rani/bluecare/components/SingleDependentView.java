@@ -14,8 +14,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ipong.rani.bluecare.R;
+import com.ipong.rani.bluecare.components.adapters.NotificationsAdapter;
+import com.ipong.rani.bluecare.components.objects.NotificationData;
 import com.ipong.rani.bluecare.components.objects.PatientCondition;
 import com.ipong.rani.bluecare.components.adapters.PatientConditionAdapter;
+import com.ipong.rani.bluecare.components.objects.SingleNotif;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,8 +38,9 @@ public class SingleDependentView extends AppCompatActivity {
     private LinearLayout mainLayout;
     private JSONArray conditions;
     private ListView thisListView;
-    private PatientConditionAdapter thisAdapter;
+    private NotificationsAdapter thisAdapter;
     private final ArrayList<PatientCondition> conditionList = new ArrayList<>();
+    private final ArrayList<SingleNotif> updateDataList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +58,15 @@ public class SingleDependentView extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         String pR = bundle.getString("patientRecord");
+        String reports = bundle.getString("reports");
+
 
 
         try {
             JSONObject record = new JSONObject(pR);
             JSONObject medicalBio = (JSONObject) record.getJSONArray("medicalBio").get(0);
+            JSONArray rep = new JSONArray(reports);
+            Log.d("dependent jsonArray",rep.toString());
 
             //Log.d("medical bio", medicalBio.toString());
             Log.d("record keys", record.names().toString());
@@ -118,14 +126,19 @@ public class SingleDependentView extends AppCompatActivity {
             ListView DynamicListView = (ListView) findViewById(R.id.updateList);
             //DynamicListView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,  150));
 
-            for(int x= 0; x != 20; x++){
-                PatientCondition p = new PatientCondition("Something", "someStatus");
-                conditionList.add(p);
+            for(int x= 0; rep.length() != x; x++) {
+
+                JSONObject notif = rep.getJSONObject(x);
+
+                Log.d("tpc", notif.getString("topic"));
+
+                SingleNotif ntf = new SingleNotif(notif.getString("topic"), notif.getString("patientReport"));
+                updateDataList.add(ntf);
             }
 
-            Log.d("cond list", conditionList.toString());
+            Log.d("ntf list", updateDataList.toString());
 
-            thisAdapter = new PatientConditionAdapter(this, conditionList);
+            thisAdapter = new NotificationsAdapter(this, updateDataList);
 
             DynamicListView.setAdapter(thisAdapter);
 
@@ -188,7 +201,7 @@ public class SingleDependentView extends AppCompatActivity {
         //String pConditions = bundle.getString("patientConditions");
         //thisListView = (ListView) findViewById(R.id.condition_list);
 
-        Log.d("pR",pR);
+       // Log.d("pR",pR);
 
         //nTitle.setText(pName);
         //thisAdapter = new PatientConditionAdapter(this, conditionList);

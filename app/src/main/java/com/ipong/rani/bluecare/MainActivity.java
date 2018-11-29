@@ -18,8 +18,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -35,6 +33,7 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -46,10 +45,13 @@ import javax.annotation.Nonnull;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.ipong.rani.bluecare.apolloClient.BlueCareApolloClient;
+import com.ipong.rani.bluecare.components.SingleDependentView;
 import com.ipong.rani.bluecare.components.SinglePatientView;
+import com.ipong.rani.bluecare.components.adapters.NotificationsAdapter;
+import com.ipong.rani.bluecare.components.objects.NotificationData;
 import com.ipong.rani.bluecare.components.objects.Patient;
 import com.ipong.rani.bluecare.components.adapters.PatientAdapter;
-import com.ipong.rani.bluecare.components.SingleDependentView;
+import com.ipong.rani.bluecare.components.objects.SingleNotif;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -60,7 +62,10 @@ public class MainActivity extends AppCompatActivity {
     private ListView thisListView;
     private Intent thisIntent;
     private PatientAdapter thisAdapter;
+    private NotificationsAdapter notifAdapter;
     private final ArrayList<Patient> patientList = new ArrayList<>();
+    private final ArrayList<NotificationData> notificationDataList = new ArrayList<>();
+    private final ArrayList<SingleNotif> singleNotifList = new ArrayList<>();
     private String[] nameList;
     private String[] lastNameList;
     private Menu slideMenu;
@@ -76,13 +81,13 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
 
-    // ** Notification **//
-    //1. Notification Channel
-    //2. Notification Builder
-    //3. Notification Manager
+    // ** NotificationData **//
+    //1. NotificationData Channel
+    //2. NotificationData Builder
+    //3. NotificationData Manager
 
-    public static final String CHANNEL_ID = "Notification FireBase";
-    private static final String CHANNEL_NAME = "Notification FireBase";
+    public static final String CHANNEL_ID = "NotificationData FireBase";
+    private static final String CHANNEL_NAME = "NotificationData FireBase";
     private static final String CHANNEL_DESC = "Notificaiton FireBase something";
     private TextView textNotify;
 
@@ -97,8 +102,8 @@ public class MainActivity extends AppCompatActivity {
         membership = pref.getString("membership", null);
 
 
-        Log.d("ak here", aK);
-        Log.d("membership", membership);
+        //Log.d("ak here", aK);
+        //Log.d("membership", membership);
 
 
         thisListView = (ListView) findViewById(R.id.patient_list_main);
@@ -112,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
         getPatients(aK);
         thisAdapter = new PatientAdapter(this, patientList);
-
+        notifAdapter = new NotificationsAdapter(this, singleNotifList);
 
 
         /* Action bar*/
@@ -144,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         /* END */
 
 
-        /*Notification button*/
+        /*NotificationData button*/
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {  //N is version of Android
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
             channel.setDescription(CHANNEL_DESC);
@@ -268,15 +273,34 @@ public class MainActivity extends AppCompatActivity {
 
             Log.d("selected: ", title);
 
+
             if(title.equals("patientMenu")) {
                 Log.d("selected title: ", title);
             } else {
                 Patient currentPatient = patientList.get(selected);
+                NotificationData currentNotificationData = notificationDataList.get(selected);
+
                 JSONObject patientRecord = currentPatient.getPatientRecord();
-                thisIntent = new Intent(MainActivity.this, SingleDependentView.class);
-                thisIntent.putExtra("patientRecord", patientRecord.toString());
-                startActivity(thisIntent);
+                JSONArray n = currentNotificationData.getNotification();
+
+                //Log.d("record", currentPatient.toString());
+                //Log.d("notif", n.toString());
+
+                if(membership.equals("Staff")){
+                    thisIntent = new Intent(MainActivity.this, SinglePatientView.class);
+                    thisIntent.putExtra("patientRecord", patientRecord.toString());
+                    thisIntent.putExtra("reports", n.toString());
+                    startActivity(thisIntent);
+                } else {
+                    thisIntent = new Intent(MainActivity.this, SingleDependentView.class);
+                    thisIntent.putExtra("patientRecord", patientRecord.toString());
+                    thisIntent.putExtra("reports", n.toString());
+                    startActivity(thisIntent);
+                }
+
+
             }
+
 
         }
 
@@ -311,14 +335,14 @@ public class MainActivity extends AppCompatActivity {
                                 Gson gson = new Gson();
                                 String jsonString = gson.toJson(obj);
 
-                                Log.d("jsonstring here:", jsonString);
+                                //Log.d("jsonstring here:", jsonString);
 
 
                                 try {
 
                                     JSONObject patientRecord = new JSONObject(jsonString);
 
-
+                                   // Log.d("patient record", patientRecord.toString());
 
                                     pName = patientRecord.getString("firstName");
                                     lName = patientRecord.getString("lastName");
@@ -326,14 +350,20 @@ public class MainActivity extends AppCompatActivity {
                                     //condition = patientRecords.getString("conditions");
 
                                     nameList[i] = pName;
+
                                     lastNameList[i] = lName;
+
+                                    //Log.d("reports", patientRecord.getString("reports"));
+
 
                                     //Log.d("namelist in loop: ", nameList[i].toString());
                                     //JSONArray condition = patientRecords.getJSONArray("conditions");
 
+                                    NotificationData n = new NotificationData(new JSONArray(patientRecord.getString("reports")));
                                     Patient x = new Patient(patientRecord);
                                    // x.setCondition(condition);
                                     patientList.add(x);
+                                    notificationDataList.add(n);
 
 
                                 } catch (JSONException e) {
@@ -347,16 +377,42 @@ public class MainActivity extends AppCompatActivity {
                                     // patientList.add(new Patient(name, cName, cStatus));
                                     //Log.d("nameList: ", nameList.toString());
 
-                                    for (int j = 0; j < nameList.length; j++) {
-                                        slideMenu.add(0, j, 0,nameList[j]);
-                                        //Log.d("topic register", nameList[j]);
-                                        String tpc = nameList[j].replaceAll("\\s+","") + lastNameList[j];
-                                        FirebaseMessaging.getInstance().subscribeToTopic(tpc);
+
+                                    //Log.d("notification", notificationDataList.get(0).getNotification().toString());
+                                    //Log.d("notification list", notificationDataList.toString());
+
+
+                                    for (int j = 0; j < notificationDataList.size(); j++) {
+                                        JSONArray ntf = notificationDataList.get(j).getNotification();
+                                        try {
+                                            for (int x = 0; x < ntf.length(); x++ ) {
+                                                //Log.d("lsItemNotif", ntf.get(x).toString());
+                                                //Log.d("topic", ntf.getJSONObject(x).getString("topic"));
+                                                //Log.d("report", ntf.getJSONObject(x).getString("patientReport"));
+
+                                                SingleNotif sn = new SingleNotif(ntf.getJSONObject(x).getString("topic"), ntf.getJSONObject(x).getString("patientReport"));
+                                                singleNotifList.add(sn);
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
 
 
-                                    thisListView.setAdapter(thisAdapter);
 
+                                    for (int j = 0; j < nameList.length; j++) {
+                                        slideMenu.add(0, j, 0,nameList[j]);
+
+                                        //Log.d("topic register", nameList[j]);
+                                        String tpc = nameList[j].replaceAll("\\s+","") + lastNameList[j];
+                                        FirebaseMessaging.getInstance().subscribeToTopic(tpc);
+
+                                    }
+
+
+                                    thisListView.setAdapter(notifAdapter);
+
+                                    /*
                                     thisListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -392,6 +448,7 @@ public class MainActivity extends AppCompatActivity {
                                         }
 
                                     });
+                                    */
                                 }
                             });
 

@@ -21,6 +21,11 @@
            timePill
            medicalIssue
          }
+         reports {
+           datePublished
+           patientReport
+           topic
+         }
         }
       }
     }

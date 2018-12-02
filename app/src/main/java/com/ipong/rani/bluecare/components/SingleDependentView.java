@@ -69,7 +69,7 @@ public class SingleDependentView extends AppCompatActivity {
 
             String[] pIList = new String[]{"firstName", "lastName", "age", "birthDate", "status"};
             final TextView profileTitle = new TextView(this);
-            profileTitle.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 80));
+            profileTitle.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 200));
             profileTitle.setGravity(Gravity.CENTER_VERTICAL);
             profileTitle.setPadding(20,20,0,0);
             profileTitle.setText("Personal Info:");
@@ -80,7 +80,7 @@ public class SingleDependentView extends AppCompatActivity {
                 final TextView rowText = new TextView(this);
                 rowText.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 60));
                 rowText.setGravity(Gravity.CENTER_VERTICAL);
-                rowText.setPadding(50,15,0,0);
+                rowText.setPadding(50,5,0,0);
                 rowText.setText(pIList[x].toString() + ": " + record.getString(pIList[x].toString()));
                 mainLayout.addView(rowText);
             }
@@ -88,7 +88,7 @@ public class SingleDependentView extends AppCompatActivity {
 
             String[] mDList = new String[]{"medicalId", "bloodType", "bloodPressure", "allergies", "diet", "pill", "timePill"};
             final TextView mdTitle = new TextView(this);
-            mdTitle.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 80));
+            mdTitle.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200));
             mdTitle.setGravity(Gravity.CENTER_VERTICAL);
             mdTitle.setPadding(20,20,0,0);
             mdTitle.setText("Medical Bio:");
@@ -99,7 +99,7 @@ public class SingleDependentView extends AppCompatActivity {
                 final TextView rowText = new TextView(this);
                 rowText.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 60));
                 rowText.setGravity(Gravity.CENTER_VERTICAL);
-                rowText.setPadding(50,15,0,0);
+                rowText.setPadding(50,5,0,0);
                 rowText.setText(mDList[x].toString() + ": " + medicalBio.getString(mDList[x].toString()));
                 mainLayout.addView(rowText);
             }

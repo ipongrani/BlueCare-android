@@ -108,6 +108,7 @@ public class Login extends AppCompatActivity {
                             Login.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+
                                     display.setText("Invalid Key");
                                 }
                             });

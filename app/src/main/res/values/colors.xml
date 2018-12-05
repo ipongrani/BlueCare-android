@@ -3,7 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#2e368f</color>
-    <color name="White">#fff</color>
+    <color name="White">#ffffff</color>
     <color name="Grey">#c3c3c3 </color>
     <color name="lightGrey">#f2f2f2 </color>
     <color name="grey1">#e6e6e6 </color>
@@ -34,4 +34,6 @@
 
     <color name="gradient1">#c1efee</color>
     <color name="gradient2">#79dedb</color>
+    <color name="basic">#00afdf</color>
+
 </resources>

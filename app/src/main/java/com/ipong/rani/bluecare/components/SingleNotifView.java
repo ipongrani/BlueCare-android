@@ -59,6 +59,7 @@ public class SingleNotifView extends AppCompatActivity {
 
 
 
+
         Log.d("bundle single notif", topic + " " + date + " " + report);
 
     }

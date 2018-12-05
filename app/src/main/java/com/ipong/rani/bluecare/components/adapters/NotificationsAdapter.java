@@ -51,6 +51,7 @@ public class NotificationsAdapter extends ArrayAdapter<SingleNotif> {
         topic.setText(currentItem.getTopic());
 
 
+
         TextView report = (TextView) listItem.findViewById(R.id.txtViewRep);
         report.setText(currentItem.getPatientReport());
 
@@ -58,6 +59,8 @@ public class NotificationsAdapter extends ArrayAdapter<SingleNotif> {
 
         ImageView dImg = (ImageView) listItem.findViewById((R.id.imgNotification));
         Picasso.get().load(R.drawable.grandmother).into(dImg);
+
+
 
 
 

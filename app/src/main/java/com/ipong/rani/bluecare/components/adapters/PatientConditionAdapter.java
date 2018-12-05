@@ -39,6 +39,7 @@ public class PatientConditionAdapter extends ArrayAdapter<PatientCondition> {
         PatientCondition currentItem = conditionList.get(position);
 
 
+
         TextView name = (TextView) listItem.findViewById(R.id.txtCondName);
         name.setText(currentItem.getConditonName());
 
